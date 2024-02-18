@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movie_app/resources/app_router.dart';
-import 'package:movie_app/resources/app_routes.dart';
-import 'package:movie_app/resources/app_strings.dart';
-import 'package:movie_app/resources/app_values.dart';
+import 'package:movie_app/core/resources/app_router.dart';
+import 'package:movie_app/core/resources/app_routes.dart';
+import 'package:movie_app/core/resources/app_strings.dart';
+import 'package:movie_app/core/resources/app_values.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.child});
@@ -63,6 +63,12 @@ class _MainPageState extends State<MainPage> {
     final String location = GoRouterState.of(context).matchedLocation;
     if (location.startsWith(moviesPath)) {
       return 0;
+    } else if (location.startsWith(tvShowsPath)) {
+      return 1;
+    } else if (location.startsWith(searchPath)) {
+      return 2;
+    } else if (location.startsWith(watchlistPath)) {
+      return 3;
     }
     return 0;
   }
@@ -71,6 +77,15 @@ class _MainPageState extends State<MainPage> {
     switch (index) {
       case 0:
         context.goNamed(AppRoutes.moviesRoute);
+        break;
+      case 1:
+        context.goNamed(AppRoutes.tvShowsRoute);
+        break;
+      case 2:
+        context.goNamed(AppRoutes.searchRoute);
+        break;
+      case 3:
+        context.goNamed(AppRoutes.watchlistRoute);
         break;
       default:
     }
