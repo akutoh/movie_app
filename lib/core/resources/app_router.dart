@@ -2,7 +2,9 @@ import 'package:go_router/go_router.dart';
 import 'package:movie_app/core/presentation/pages/main_page.dart';
 import 'package:movie_app/movies/presentation/views/movies_view.dart';
 import 'package:movie_app/core/resources/app_routes.dart';
+import 'package:movie_app/search/presentation/views/search_view.dart';
 import 'package:movie_app/tvshows/presentation/views/tv_shows_view.dart';
+import 'package:movie_app/watchlist/presentation/view/watchlist_view.dart';
 
 const String moviesPath = '/movies';
 const String movieDetailsPath = 'movieDetails/:movieId';
@@ -31,7 +33,21 @@ class AppRouter {
             path: tvShowsPath,
             pageBuilder: (context, state) =>
                 const NoTransitionPage(child: TVShowsView()),
-          )
+          ),
+          GoRoute(
+            name: AppRoutes.searchRoute,
+            path: searchPath,
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: SearchView(),
+            ),
+          ),
+          GoRoute(
+            name: AppRoutes.watchlistRoute,
+            path: watchlistPath,
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: WatchListView(),
+            ),
+          ),
         ])
   ]);
 }
