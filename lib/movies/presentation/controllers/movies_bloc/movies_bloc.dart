@@ -16,10 +16,10 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   }
 
   Future<void> _getMovies(
-      GetMoviesEvent event, Emitter<MoviesState> emit) async {
-    emit(
-      state.copyWith(status: RequestStatus.loading),
-    );
+    GetMoviesEvent event,
+    Emitter<MoviesState> emit,
+  ) async {
+    emit(state.copyWith(status: RequestStatus.loading));
     final result = await _getMoviesUseCase(const NoParameters());
     result.fold(
       (l) =>

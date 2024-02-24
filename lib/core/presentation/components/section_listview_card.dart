@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/core/domain/entities/media.dart';
 import 'package:movie_app/core/resources/app_colors.dart';
 import 'package:movie_app/core/resources/app_values.dart';
-import 'package:movie_app/core/resources/image_with_shimmer.dart';
+import 'package:movie_app/core/presentation/components/image_with_shimmer.dart';
 
 class SectionListViewCard extends StatelessWidget {
   final Media media;

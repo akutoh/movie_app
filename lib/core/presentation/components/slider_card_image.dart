@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/resources/app_colors.dart';
-import 'package:movie_app/core/resources/image_with_shimmer.dart';
+import 'package:movie_app/core/presentation/components/image_with_shimmer.dart';
 
 class SliderCardImage extends StatelessWidget {
   final String imageUrl;

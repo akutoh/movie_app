@@ -3,26 +3,49 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:movie_app/core/domain/entities/media.dart';
-import 'package:movie_app/core/presentation/pages/components/custom_slider.dart';
-import 'package:movie_app/core/presentation/pages/components/section_listview.dart';
+import 'package:movie_app/core/presentation/components/custom_slider.dart';
+import 'package:movie_app/core/presentation/components/loading_indicator.dart';
+import 'package:movie_app/core/presentation/components/section_listview.dart';
 import 'package:movie_app/core/resources/app_routes.dart';
 import 'package:movie_app/core/resources/app_strings.dart';
 import 'package:movie_app/core/resources/app_values.dart';
-import 'package:movie_app/core/resources/section_header.dart';
-import 'package:movie_app/core/resources/section_listview_card.dart';
-import 'package:movie_app/core/resources/slider_card.dart';
+import 'package:movie_app/core/presentation/components/section_header.dart';
+import 'package:movie_app/core/presentation/components/section_listview_card.dart';
+import 'package:movie_app/core/presentation/components/slider_card.dart';
+import 'package:movie_app/core/utils/enums.dart';
+import 'package:movie_app/movies/presentation/controllers/movies_bloc/movies_bloc.dart';
+import 'package:movie_app/core/services/service_locator.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MoviesView extends StatelessWidget {
   const MoviesView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.pink,
-      body: MoviesWidget(nowPlayingMovies: [], popularMovies: [], topRatedMovies: [],),
+    return BlocProvider(
+      create: (context) => sl<MoviesBloc>()..add(GetMoviesEvent()),
+      child: Scaffold(
+        body: BlocBuilder<MoviesBloc, MoviesState>(
+          builder: (context, state) {
+            switch (state.status) {
+              case RequestStatus.loading:
+                return const LoadingIndicator();
+              case RequestStatus.loaded:
+                return MoviesWidget(
+                  nowPlayingMovies: state.movies[0],
+                  popularMovies: state.movies[1],
+                  topRatedMovies: state.movies[2],
+                );
+              case RequestStatus.error:
+                return Text(state.message);
+            }
+          },
+        ),
+      ),
     );
   }
 }
+//
 
 class MoviesWidget extends StatelessWidget {
   final List<Media> nowPlayingMovies;

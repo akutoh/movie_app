@@ -5,7 +5,7 @@ import 'package:movie_app/core/domain/entities/media.dart';
 import 'package:movie_app/core/resources/app_colors.dart';
 import 'package:movie_app/core/resources/app_constants.dart';
 import 'package:movie_app/core/resources/app_values.dart';
-import 'package:movie_app/core/resources/slider_card_image.dart';
+import 'package:movie_app/core/presentation/components/slider_card_image.dart';
 
 class SliderCard extends StatelessWidget {
   final Media media;

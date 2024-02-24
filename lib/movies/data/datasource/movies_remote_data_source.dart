@@ -22,7 +22,9 @@ class MoviesRemoteDataSourceImpl extends MoviesRemoteDataSource {
 
   @override
   Future<List<MovieModel>> getNowPlayingMovies() async {
+    print("Calling>>> NowPlayingMoviesPath: ${ApiConstants.nowPlayingMoviesPath}");
     final response = await Dio().get(ApiConstants.nowPlayingMoviesPath);
+    print("Response<<<< NowPlayingMoviesResponse: $response");
     if (response.statusCode == 200) {
       return List<MovieModel>.from(
         (response.data['results'] as List).map(

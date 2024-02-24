@@ -3,11 +3,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:movie_app/core/domain/entities/media.dart';
 import 'package:movie_app/core/resources/app_router.dart';
 import 'package:movie_app/core/resources/app_theme.dart';
+import 'package:movie_app/core/services/service_locator.dart';
 
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(MediaAdapter());
   await Hive.openBox('items');
+  ServiceLocator.init();
   runApp(
     const MyApp(),
   );
