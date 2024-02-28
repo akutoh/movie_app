@@ -6,6 +6,7 @@ import 'package:movie_app/core/resources/app_colors.dart';
 import 'package:movie_app/core/resources/app_constants.dart';
 import 'package:movie_app/core/resources/app_values.dart';
 import 'package:movie_app/core/presentation/components/slider_card_image.dart';
+import 'package:movie_app/core/utils/functions.dart';
 
 class SliderCard extends StatelessWidget {
   final Media media;
@@ -22,7 +23,7 @@ class SliderCard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        // TODO
+        navigateToDetailsView(context, media);
       },
       child: SafeArea(
         child: Stack(

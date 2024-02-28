@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:movie_app/core/domain/entities/media.dart';
 import 'package:movie_app/core/presentation/components/custom_slider.dart';
+import 'package:movie_app/core/presentation/components/error_screen.dart';
 import 'package:movie_app/core/presentation/components/loading_indicator.dart';
 import 'package:movie_app/core/presentation/components/section_listview.dart';
 import 'package:movie_app/core/resources/app_routes.dart';
@@ -19,6 +20,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MoviesView extends StatelessWidget {
   const MoviesView({super.key});
+
+  void onTryAgain() {
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +42,7 @@ class MoviesView extends StatelessWidget {
                   topRatedMovies: state.movies[2],
                 );
               case RequestStatus.error:
-                return Text(state.message);
+                return ErrorScreen(onTryAgainPressed: () {  },);
             }
           },
         ),

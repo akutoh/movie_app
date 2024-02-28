@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:movie_app/core/presentation/pages/main_page.dart';
+import 'package:movie_app/movies/presentation/views/movie_details_view.dart';
 import 'package:movie_app/movies/presentation/views/movies_view.dart';
 import 'package:movie_app/core/resources/app_routes.dart';
 import 'package:movie_app/search/presentation/views/search_view.dart';
@@ -26,7 +27,7 @@ class AppRouter {
             name: AppRoutes.moviesRoute,
             path: moviesPath,
             pageBuilder: (context, state) =>
-                const NoTransitionPage(child: MoviesView()),
+                const NoTransitionPage(child: MovieDetailsView(movieId:1,)),
           ),
           GoRoute(
             name: AppRoutes.tvShowsRoute,

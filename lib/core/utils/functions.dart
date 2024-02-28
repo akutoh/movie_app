@@ -1,4 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie_app/core/data/network/api_constants.dart';
+import 'package:movie_app/core/domain/entities/media.dart';
+import 'package:movie_app/core/resources/app_routes.dart';
 
 String getDate(String? date) {
   if (date == null || date.isEmpty) {
@@ -50,7 +54,7 @@ String getDate(String? date) {
       month = 'Dec';
       break;
     default:
-    break;
+      break;
   }
   return '$month $day, $year';
 }
@@ -68,5 +72,24 @@ String getBackdropUrl(String? path) {
     return ApiConstants.baseBackdropUrl + path;
   } else {
     return ApiConstants.moviePlaceHolder;
+  }
+}
+
+// navigation
+void navigateToDetailsView(BuildContext context, Media media) {
+  if (media.isMovie) {
+    context.pushNamed(
+      AppRoutes.movieDetailsRoute,
+      pathParameters: {
+        'movieId': media.tmdbID.toString(),
+      },
+    );
+  } else {
+    context.pushNamed(
+      AppRoutes.tvShowDetailsRoute,
+      pathParameters: {
+        'tvShowId': media.tmdbID.toString(),
+      },
+    );
   }
 }
