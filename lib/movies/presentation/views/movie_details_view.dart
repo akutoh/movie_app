@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/domain/entities/media_details.dart';
 import 'package:movie_app/core/presentation/components/details_card.dart';
+import 'package:movie_app/core/presentation/components/error_screen.dart';
+import 'package:movie_app/core/presentation/components/loading_indicator.dart';
+import 'package:movie_app/core/services/service_locator.dart';
+import 'package:movie_app/core/utils/enums.dart';
 import 'package:movie_app/movies/presentation/components/movie_card_details.dart';
+import 'package:movie_app/movies/presentation/controllers/movie_details_bloc/movie_details_bloc.dart';
 
 class MovieDetailsView extends StatelessWidget {
   const MovieDetailsView({super.key, required this.movieId});
@@ -10,20 +16,27 @@ class MovieDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MediaDetails details = MediaDetails(
-        tmdbID: 1072790,
-        title: 'Land of Bad',
-        posterUrl: '/h27WHO2czaY5twDmV3Wfx5IdqoE.jpg',
-        backdropUrl: '/oBIQDKcqNxKckjugtmzpIIOgoc4.jpg',
-        releaseDate: '2024-01-25',
-        genres: 'genres',
-        overview: 'overview',
-        voteAverage: 2,
-        voteCount: 'voteCount',
-        trailerUrl: 'trailerUrl');
-    
-    return MovieDetailsWidget(
-      mediaDetails: details,
+    return BlocProvider(
+      create: (context) =>
+          sl<MovieDetailsBloc>()..add(GetMovieDetailsEvent(movieId)),
+      child: Scaffold(
+        body: BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
+          builder: (context, state) {
+            switch (state.status) {
+              case RequestStatus.loading:
+                return const LoadingIndicator();
+              case RequestStatus.loaded:
+                return MovieDetailsWidget(mediaDetails: state.movieDetails!);
+              case RequestStatus.error:
+                return ErrorScreen(onTryAgainPressed: () {
+                  context
+                      .read<MovieDetailsBloc>()
+                      .add(GetMovieDetailsEvent(movieId));
+                });
+            }
+          },
+        ),
+      ),
     );
   }
 }

@@ -1,4 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:movie_app/core/domain/entities/media.dart';
+import 'package:movie_app/movies/data/domain/entities/cast.dart';
+import 'package:movie_app/movies/data/domain/entities/review.dart';
 
 // ignore: must_be_immutable
 class MediaDetails extends Equatable {
@@ -17,10 +20,10 @@ class MediaDetails extends Equatable {
   final double voteAverage;
   final String voteCount;
   final String trailerUrl;
-  // final List<Cast>? cast;
-  // final List<Review>? reviews;
+  final List<Cast>? cast;
+  final List<Review>? reviews;
   // final List<Season>? seasons;
-  // final List<Media> similar;
+  final List<Media> similar;
   bool isAdded;
 
   MediaDetails({
@@ -38,10 +41,10 @@ class MediaDetails extends Equatable {
     required this.voteAverage,
     required this.voteCount,
     required this.trailerUrl,
-    // this.cast,
-    // this.reviews,
+    this.cast,
+    this.reviews,
     // this.seasons,
-    // required this.similar,
+    required this.similar,
     this.isAdded = false,
   });
 

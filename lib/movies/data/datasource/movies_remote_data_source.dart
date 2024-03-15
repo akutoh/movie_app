@@ -1,6 +1,7 @@
 import 'package:movie_app/core/data/error/exceptions.dart';
 import 'package:movie_app/core/data/network/api_constants.dart';
 import 'package:movie_app/core/data/network/error_message_model.dart';
+import 'package:movie_app/movies/data/models/movie_details_model.dart';
 import 'package:movie_app/movies/data/models/movie_model.dart';
 import 'package:dio/dio.dart';
 
@@ -9,6 +10,7 @@ abstract class MoviesRemoteDataSource {
   Future<List<MovieModel>> getNowPlayingMovies();
   Future<List<MovieModel>> getPopularMovies();
   Future<List<MovieModel>> getTopRatedMovies();
+  Future<MovieDetailsModel> getMovieDetails(int movieId);
 }
 
 class MoviesRemoteDataSourceImpl extends MoviesRemoteDataSource {
@@ -22,7 +24,8 @@ class MoviesRemoteDataSourceImpl extends MoviesRemoteDataSource {
 
   @override
   Future<List<MovieModel>> getNowPlayingMovies() async {
-    print("Calling>>> NowPlayingMoviesPath: ${ApiConstants.nowPlayingMoviesPath}");
+    print(
+        "Calling>>> NowPlayingMoviesPath: ${ApiConstants.nowPlayingMoviesPath}");
     final response = await Dio().get(ApiConstants.nowPlayingMoviesPath);
     print("Response<<<< NowPlayingMoviesResponse: $response");
     if (response.statusCode == 200) {
@@ -65,6 +68,18 @@ class MoviesRemoteDataSourceImpl extends MoviesRemoteDataSource {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromJson(response.data),
       );
+    }
+  }
+
+  @override
+  Future<MovieDetailsModel> getMovieDetails(int movieId) async {
+    final response = await Dio().get(ApiConstants.getMovieDetailsPath(movieId));
+    print("Response<<<< getMovieDetailsPath: $response");
+    if (response.statusCode == 200) {
+      return MovieDetailsModel.fromJson(response.data);
+    } else {
+      throw ServerException(
+          errorMessageModel: ErrorMessageModel.fromJson(response.data));
     }
   }
 }

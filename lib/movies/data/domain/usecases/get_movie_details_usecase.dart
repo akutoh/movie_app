@@ -1,0 +1,18 @@
+import 'package:dartz/dartz.dart';
+import 'package:movie_app/core/data/error/failure.dart';
+import 'package:movie_app/core/domain/entities/media_details.dart';
+import 'package:movie_app/core/domain/usecase/base_use_case.dart';
+import 'package:movie_app/movies/data/domain/repository/movies_repository.dart';
+
+class GetMovieDetailsUseCase extends BaseUseCase<MediaDetails, int> {
+  final MoviesRepository _baseMoviesRepository;
+
+  GetMovieDetailsUseCase(this._baseMoviesRepository);
+
+  @override
+  Future<Either<Failure, MediaDetails>> call(int p) async {
+    return await _baseMoviesRepository.getMovieDetails(p);
+  }
+
+  
+}

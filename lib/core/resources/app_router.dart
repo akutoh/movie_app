@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_app/core/presentation/pages/main_page.dart';
 import 'package:movie_app/movies/presentation/views/movie_details_view.dart';
@@ -24,11 +25,20 @@ class AppRouter {
         builder: (context, state, child) => MainPage(child: child),
         routes: [
           GoRoute(
-            name: AppRoutes.moviesRoute,
-            path: moviesPath,
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: MovieDetailsView(movieId:1,)),
-          ),
+              name: AppRoutes.moviesRoute,
+              path: moviesPath,
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: MoviesView()),
+              routes: [
+                GoRoute(
+                  name: AppRoutes.movieDetailsRoute,
+                  path: movieDetailsPath,
+                  pageBuilder: (context, state) => CupertinoPage(
+                      child: MovieDetailsView(
+                    movieId: int.parse(state.pathParameters['movieId']!),
+                  )),
+                )
+              ]),
           GoRoute(
             name: AppRoutes.tvShowsRoute,
             path: tvShowsPath,
