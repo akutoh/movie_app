@@ -6,6 +6,11 @@ import 'package:movie_app/movies/data/domain/usecases/get_movies_usecase.dart';
 import 'package:movie_app/movies/presentation/controllers/movie_details_bloc/movie_details_bloc.dart';
 import 'package:movie_app/movies/presentation/controllers/movies_bloc/movies_bloc.dart';
 import 'package:movie_app/movies/repository/movies_repository_impl.dart';
+import 'package:movie_app/search/data/datasource/search_remote_data_source.dart';
+import 'package:movie_app/search/data/repository/search_repository_impl.dart';
+import 'package:movie_app/search/domain/repository/search_repository.dart';
+import 'package:movie_app/search/domain/usecases/search_usecase.dart';
+import 'package:movie_app/search/presentation/controllers/search_bloc/search_bloc.dart';
 import 'package:movie_app/tvshows/data/datasource/tv_shows_remote_data_source.dart';
 import 'package:movie_app/tvshows/data/repository/tv_shows_repository_impl.dart';
 import 'package:movie_app/tvshows/domain/repository/tv_shows_repository.dart';
@@ -25,22 +30,26 @@ class ServiceLocator {
     sl.registerLazySingleton<MoviesRemoteDataSource>(() => MoviesRemoteDataSourceImpl());
     sl.registerLazySingleton<TvShowsRemoteDataSource>(() => TvShowsRemoteDataSourceImpl());
     sl.registerLazySingleton<WatchlistLocalDataSource>(() => WatchlistLocalDataSourceImpl());
+    sl.registerLazySingleton<SearchRemoteDataSource>(() => SearchRemoteDataSourceImpl());
 
     // repository
     sl.registerLazySingleton<MoviesRepository>(() => MoviesRepositoryImpl(sl()));
     sl.registerLazySingleton<TvShowsRepository>(() => TvShowsRepositoryImpl(sl()));
     sl.registerLazySingleton<WatchlistRepository>(() => WatchListRepositoryImpl(sl()));
+    sl.registerLazySingleton<SearchRepository>(() => SearchRepositoryImpl(sl()));
 
     // use cases
     sl.registerLazySingleton(() => GetMoviesUseCase(sl()));
     sl.registerLazySingleton(() => GetTvShowsUseCase(sl()));
     sl.registerLazySingleton(() => GetWatchlistItemsUseCase(sl()));
     sl.registerLazySingleton(() => GetMovieDetailsUseCase(sl()));
+    sl.registerLazySingleton(() => SearchUseCase(sl()));
 
     // bloc
     sl.registerFactory(() => MoviesBloc(sl()));
     sl.registerFactory(() => TvShowsBloc(sl()));
     sl.registerFactory(() => WatchlistBloc(sl(), sl(), sl(), sl()));
     sl.registerFactory(() => MovieDetailsBloc(sl()));
+    sl.registerFactory(() => SearchBloc(sl()));
   }
 }

@@ -44,4 +44,9 @@ class ApiConstants {
 
   static const String topRatedTvShowsPath =
       '$baseUrl/tv/top_rated?api_key=$apiKey&with_original_language=en';
+
+// search paths
+  static String getSearchPath(String title) {
+    return '$baseUrl/search/multi?api_key=$apiKey&query=$title';
+  }
 }
