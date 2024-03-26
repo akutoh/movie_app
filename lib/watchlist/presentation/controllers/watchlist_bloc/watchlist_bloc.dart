@@ -18,9 +18,7 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
     this._removeWatchlistItemsUseCase,
     this._checkIfItemAddedUseCase,
   ) : super(const WatchlistState()) {
-    on<WatchlistEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<WatchlistEvent>(_getWatchListItems);
   }
 
   final GetWatchlistItemsUseCase _getWatchlistItemsUseCase;

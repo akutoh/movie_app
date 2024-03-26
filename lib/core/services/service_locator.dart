@@ -19,7 +19,10 @@ import 'package:movie_app/tvshows/presentation/controllers/tv_shows_bloc/tv_show
 import 'package:movie_app/watchlist/data/datasource/watchlist_local_data_source.dart';
 import 'package:movie_app/watchlist/data/repository/watchlist_repository_impl.dart';
 import 'package:movie_app/watchlist/domain/repository/watchlist_repository.dart';
+import 'package:movie_app/watchlist/domain/usecases/add_watchlist_item_usecase.dart';
+import 'package:movie_app/watchlist/domain/usecases/check_if_item_added_usecase.dart';
 import 'package:movie_app/watchlist/domain/usecases/get_watchlist_items_usecase.dart';
+import 'package:movie_app/watchlist/domain/usecases/remove_watchlist_item_usecase.dart';
 import 'package:movie_app/watchlist/presentation/controllers/watchlist_bloc/watchlist_bloc.dart';
 
 final sl = GetIt.instance;
@@ -43,6 +46,9 @@ class ServiceLocator {
     sl.registerLazySingleton(() => GetTvShowsUseCase(sl()));
     sl.registerLazySingleton(() => GetWatchlistItemsUseCase(sl()));
     sl.registerLazySingleton(() => GetMovieDetailsUseCase(sl()));
+    sl.registerLazySingleton(() => AddWatchlistItemUseCase(sl()));
+    sl.registerLazySingleton(() => RemoveWatchlistItemsUseCase(sl()));
+    sl.registerLazySingleton(() => CheckIfItemAddedUseCase(sl()));
     sl.registerLazySingleton(() => SearchUseCase(sl()));
 
     // bloc
